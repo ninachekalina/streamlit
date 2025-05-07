@@ -29,12 +29,6 @@ def load_vector_store(_embeddings):
 
 @st.cache_resource
 def load_llm():
-    #local_model_path = r"C:\Users\Nina\.cache\huggingface\hub\models--Qwen--Qwen2.5-1.5B-Instruct\snapshots\989aa7980e4cf806f80c7fef2b1adb7bc71aa306"
-    #tokenizer = AutoTokenizer.from_pretrained(local_model_path)
-    #model = AutoModelForCausalLM.from_pretrained(local_model_path,
-    #device_map="auto",
-    #torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32)
-
     model_id = "Qwen/Qwen2.5-1.5B-Instruct"  # локальная causal модель
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = AutoModelForCausalLM.from_pretrained(model_id)
@@ -47,21 +41,10 @@ def load_llm():
         do_sample=True,
         top_p=0.95,
         top_k=30,
-        repetition_penalty=1.1
+        repetition_penalty=1.1,
+        huggingfacehub_api_token="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"
     )
-
-    return HuggingFacePipeline(pipeline=pipe)
-#def load_llm():
-    #return HuggingFaceEndpoint(
-        #repo_id="Qwen/Qwen3-0.6B",
-        #task="text-generation",
-        #max_new_tokens=600,
-        #temperature=1.5,
-        #huggingfacehub_api_token="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"
-    #)
-
-
-    
+    return HuggingFacePipeline(pipeline=pipe)    
 
 # --- Инициализация компонентов ---
 embeddings = load_embeddings()
@@ -88,11 +71,6 @@ qa_chain = RetrievalQA.from_chain_type(
 
 # --- Интерфейс пользователя ---
 user_question = st.text_input("Задайте  вопрос :", "Что такое большие данные?")
-
-if st.button("Проверка модели напрямую"):
-    with st.spinner("Генерация напрямую без цепочки..."):
-        response = llm("Привет! Расскажи, что такое искусственный интеллект.")
-        st.write(response)
 
 if st.button("Получить ответ") and user_question:
     with st.spinner("Генерация ответа..."):
