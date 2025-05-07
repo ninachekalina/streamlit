@@ -1,3 +1,4 @@
+langchain-community 
 transformers
 torch
 streamlit
