@@ -42,7 +42,7 @@ def load_llm():
         top_p=0.95,
         top_k=30,
         repetition_penalty=1.1,
-        huggingfacehub_api_token="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"
+        
     )
     return HuggingFacePipeline(pipeline=pipe)    
 
