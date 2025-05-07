@@ -1,5 +1,5 @@
 import os
-!pip install -q transformers streamlit langchain langchain-community faiss-cpu sentence-transformers
+
 
 import streamlit as st
 from langchain_community.vectorstores import FAISS
