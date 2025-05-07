@@ -29,7 +29,7 @@ def load_vector_store(_embeddings):
 
 @st.cache_resource
 def load_llm():
-    model_id = "Qwen/Qwen2.5-1.5B-Instruct"  # локальная causal модель
+    model_id = "google/gemma-3-1b-it"  # локальная causal модель
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     model = AutoModelForCausalLM.from_pretrained(model_id)
     pipe = pipeline(
